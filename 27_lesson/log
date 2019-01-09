@@ -1,0 +1,18 @@
+g++ -o server TcpServer.cc -std=c++11 -lpthread
+In file included from TcpServer.cc:1:0:
+TcpServer.hpp: In member function ‘void Server::Run()’:
+TcpServer.hpp:146:45: error: no matching function for call to ‘Task::Task(Sock&, void (&)(int))’
+                 Task t(sock, Server::Service);
+                                             ^
+TcpServer.hpp:146:45: note: candidates are:
+In file included from TcpServer.hpp:16:0,
+                 from TcpServer.cc:1:
+ThreadPool.hpp:13:9: note: Task::Task(int, handler_t)
+         Task(int sock_=-1, handler_t h_=NULL):sock(sock_), handler(h_)
+         ^
+ThreadPool.hpp:13:9: note:   no known conversion for argument 1 from ‘Sock’ to ‘int’
+ThreadPool.hpp:8:7: note: constexpr Task::Task(const Task&)
+ class Task{
+       ^
+ThreadPool.hpp:8:7: note:   candidate expects 1 argument, 2 provided
+make: *** [server] Error 1
